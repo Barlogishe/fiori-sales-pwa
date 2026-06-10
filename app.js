@@ -141,7 +141,7 @@ async function renderEmployeeSelect() {
         id="phone"
         class="login-input"
         type="tel"
-        placeholder="79037634300">
+        placeholder="71231231212">
 
     </div>
 
