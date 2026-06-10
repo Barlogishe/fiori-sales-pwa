@@ -1,5 +1,5 @@
 const API_URL =
-  "https://script.google.com/macros/s/AKfycbw1BhLkt4Dr7uIa9CELH5hd2Qx9uc7OsxfgBc1rv7XQhX1OQLlTFpbzEte2asJdTSFN/exec";
+  "https://script.google.com/macros/s/AKfycby8MdYRzwonvnF_zCO76ye7pGhBEnHA_VmOO0fQg7uL52wsBjHn_KczML7i0wvSRoRC/exec";
 
 let references = null;
 
@@ -131,21 +131,102 @@ async function renderEmployeeSelect() {
         Добро пожаловать
       </h1>
 
-      <select id="employeeSelect">
+      <div class="form-group">
 
-        <option value="">
-          Загрузка...
-        </option>
+      <label>
+        Номер телефона
+      </label>
 
-      </select>
+      <input
+        id="phone"
+        class="login-input"
+        type="tel"
+        placeholder="79037634300">
 
-      <button id="continueBtn">
-        Продолжить
+    </div>
+
+    <div class="form-group">
+
+      <label>
+        Пароль
+      </label>
+
+      <input
+        id="password"
+        class="login-input"
+        type="password"
+        placeholder="Введите пароль">
+
+    </div>
+
+      <button id="loginBtn">
+        Войти
       </button>
 
     </div>
 
   `;
+
+  function login() {
+  
+    if (!references) {
+      showToast(
+        "Справочники не загружены"
+      );
+      return;
+    }
+  const phone =
+    document
+      .getElementById("phone")
+      .value
+      .trim();
+
+  const password =
+    document
+      .getElementById("password")
+      .value
+      .trim();
+
+  const employee =
+    references.employees.find(e => {
+
+      return (
+        String(e.phone).trim() === String(phone).trim()
+        &&
+        String(e.password).trim() === String(password).trim()
+      );
+
+    });
+
+  if (!employee) {
+
+    showToast(
+      "Неверный телефон или пароль"
+    );
+
+    return;
+
+  }
+
+  localStorage.setItem(
+    "employee",
+    employee.name
+  );
+
+  localStorage.setItem(
+    "phone",
+    employee.phone
+  );
+
+  localStorage.setItem(
+    "role",
+    employee.role
+  );
+
+  renderHome();
+
+}
+
 
   try {
 
@@ -156,68 +237,41 @@ async function renderEmployeeSelect() {
 
     references =
       await response.json();
-
-    const select =
-      document.getElementById(
-        "employeeSelect"
-      );
-
-    select.innerHTML =
-      `<option value="">
-        Выберите сотрудника
-      </option>`;
-
-    references.employees.forEach(
-      employee => {
-
-        select.innerHTML += `
-          <option value="${employee}">
-            ${employee}
-          </option>
-        `;
-
-      }
-    );
-
+    
   } catch (error) {
 
     console.error(error);
 
     showToast(
-      "Ошибка загрузки сотрудников"
+      "Ошибка загрузки данных"
     );
 
   }
 
   document
-    .getElementById("continueBtn")
-    .onclick = () => {
+    .getElementById("loginBtn")
+    .onclick = login;
 
-      const employee =
-        document
-          .getElementById(
-            "employeeSelect"
-          )
-          .value;
+  document
+  .getElementById("phone")
+  .focus();
 
-      if (!employee) {
+  document
+  .getElementById("password")
+  .addEventListener(
+    "keypress",
+    (e) => {
 
-        showToast(
-          "Выберите сотрудника"
-        );
+      if (e.key === "Enter") {
 
-        return;
+        login();
 
       }
 
-      localStorage.setItem(
-        "employee",
-        employee
-      );
+    }
+  );
 
-      renderHome();
-
-    };
+}
 
 }
 function showToast(text) {
@@ -507,6 +561,25 @@ async function saveSale() {
   }
 
 }
+
+function logout() {
+
+  localStorage.removeItem(
+    "employee"
+  );
+
+  localStorage.removeItem(
+    "phone"
+  );
+
+  localStorage.removeItem(
+    "role"
+  );
+
+  location.reload();
+
+}
+
 if ("serviceWorker" in navigator) {
 
 navigator.serviceWorker
@@ -519,5 +592,4 @@ navigator.serviceWorker
 
     });
 
-}
 }

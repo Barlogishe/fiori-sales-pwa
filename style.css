@@ -439,3 +439,103 @@ body {
   font-weight: 600;
 
 }
+.employee-screen {
+
+  padding: 32px 24px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 18px;
+
+}
+
+.employee-screen h1 {
+
+  margin-bottom: 12px;
+
+  font-size: 28px;
+
+  font-weight: 600;
+
+  color: #1B2B34;
+
+}
+
+.form-group {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 8px;
+
+}
+
+.form-group label {
+
+  font-size: 14px;
+
+  font-weight: 500;
+
+  color: #6D6D6D;
+
+}
+
+.login-input {
+
+  height: 56px;
+
+  padding: 0 18px;
+
+  border: none;
+
+  border-radius: 18px;
+
+  background: #F6F7F9;
+
+  color: #1B2B34;
+
+  font-size: 18px;
+
+  font-weight: 500;
+
+  outline: none;
+
+}
+
+.login-input:focus {
+
+  background: #FFFFFF;
+
+  color: #1B2B34;
+
+  caret-color: #1B2B34;
+
+  box-shadow:
+    0 0 0 2px #D8C3A5;
+
+}
+
+#loginBtn {
+
+  margin-top: 12px;
+
+  height: 56px;
+
+  border: none;
+
+  border-radius: 18px;
+
+  background: #1B2B34;
+
+  color: white;
+
+  font-size: 17px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+}
