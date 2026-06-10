@@ -1,15 +1,21 @@
 {
   "name": "Fiori Silvestri Sales",
   "short_name": "Fiori Sales",
+  "description": "Система учета продаж и заказов Fiori Silvestri",
   "start_url": ".",
   "scope": ".",
   "display": "standalone",
+  "orientation": "portrait",
   "background_color": "#1B2B34",
   "theme_color": "#1B2B34",
-  "orientation": "portrait",
   "icons": [
     {
-      "src": "logo.png",
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
       "sizes": "512x512",
       "type": "image/png"
     }

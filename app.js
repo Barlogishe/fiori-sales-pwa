@@ -509,8 +509,8 @@ async function saveSale() {
 }
 if ("serviceWorker" in navigator) {
 
-  navigator.serviceWorker
-    .register("./service-worker.js")
+navigator.serviceWorker
+  .register("./service-worker.js?v=2")
     .then(() => {
 
       console.log(
