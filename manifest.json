@@ -1,0 +1,16 @@
+{
+  "name": "Fiori Silvestri Sales",
+  "short_name": "Fiori Sales",
+  "start_url": "/fiori-sales-pwa/",
+  "display": "standalone",
+  "background_color": "#1B2B34",
+  "theme_color": "#1B2B34",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
