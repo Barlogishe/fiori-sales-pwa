@@ -1,0 +1,441 @@
+:root {
+
+  --bg: #182e35;
+
+  --card: #163845;
+
+  --accent: #E6C8A8;
+
+  --text: #ffffff;
+
+  --text-soft: #C7D3D8;
+
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+
+  margin: 0;
+
+  background: var(--bg);
+
+  color: var(--text);
+
+  font-family:
+    "Segoe UI",
+    sans-serif;
+
+}
+
+.hidden {
+  display: none;
+}
+
+#splash {
+
+  position: fixed;
+
+  inset: 0;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  background: var(--bg);
+
+  z-index: 9999;
+
+}
+
+.logo {
+
+  width: 220px;
+
+}
+
+#app {
+
+  min-height: 100vh;
+
+  padding: 24px;
+
+}
+
+.topbar {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  margin-bottom: 32px;
+
+}
+
+.user-block {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 16px;
+
+}
+
+.avatar {
+
+  width: 52px;
+
+  height: 52px;
+
+  border-radius: 50%;
+
+  background: var(--accent);
+
+}
+
+.welcome {
+
+  font-size: 14px;
+
+  color: var(--text-soft);
+
+}
+
+.username {
+
+  font-size: 20px;
+
+  font-weight: 600;
+
+}
+
+/*.menu-btn {
+
+  width: 36px;
+
+  height: 36px;
+
+  cursor: pointer;
+
+}*/
+
+.menu-btn {
+
+  width: 48px;
+  height: 48px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+}
+
+.menu-grid {
+
+  display: grid;
+
+  grid-template-columns: repeat(3,1fr);
+
+  gap: 4px;
+
+  width: 32px;
+
+}
+
+.menu-grid span {
+
+  width: 6px;
+
+  height: 6px;
+
+  border-radius: 50%;
+
+  background: var(--accent);
+
+}
+
+#overlay {
+
+  position: fixed;
+
+  inset: 0;
+
+  background: rgba(0,0,0,.4);
+
+  display: none;
+
+}
+
+#drawer {
+
+  position: fixed;
+
+  top: 0;
+
+  right: -95%;
+
+  width: 95%;
+
+  height: 100%;
+
+  background: var(--card);
+
+  transition: .3s;
+
+  z-index: 1000;
+
+}
+
+#drawer.open {
+
+  right: 0;
+
+}
+
+#overlay.open {
+
+  display: block;
+
+}
+
+.drawer-content {
+
+  padding: 80px 32px;
+
+}
+
+.drawer-content a {
+
+  display: block;
+
+  color: white;
+
+  text-decoration: none;
+
+  font-size: 22px;
+
+  margin-bottom: 28px;
+
+}
+
+#toast {
+
+  position: fixed;
+
+  left: 20px;
+
+  right: 20px;
+
+  bottom: -120px;
+
+  background: white;
+
+  color: #222;
+
+  border-radius: 24px;
+
+  padding: 24px;
+
+  text-align: center;
+
+  transition: .3s;
+
+}
+
+#toast.show {
+
+  bottom: 24px;
+
+}
+
+.splash-content {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  width: 100%;
+
+  height: 100%;
+
+}
+
+.splash-decoration {
+
+  position: absolute;
+
+  left: 0;
+
+  bottom: 0;
+
+  width: 100%;
+
+  pointer-events: none;
+
+}
+
+.employee-screen {
+
+  min-height: 100vh;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+
+  align-items: center;
+
+  padding: 32px;
+
+}
+
+.employee-screen .logo {
+
+  width: 180px;
+
+  margin-bottom: 40px;
+
+}
+
+.employee-screen h1 {
+
+  font-size: 28px;
+
+  margin-bottom: 32px;
+
+  font-weight: 500;
+
+}
+
+.employee-screen select {
+
+  width: 100%;
+
+  max-width: 360px;
+
+  height: 56px;
+
+  border-radius: 14px;
+
+  border: 1px solid #2E5663;
+
+  background: var(--card);
+
+  color: white;
+
+  padding: 0 16px;
+
+  font-size: 16px;
+
+  margin-bottom: 24px;
+
+}
+
+.employee-screen button {
+
+  width: 100%;
+
+  max-width: 360px;
+
+  height: 56px;
+
+  border: none;
+
+  border-radius: 14px;
+
+  background: var(--accent);
+
+  color: var(--bg);
+
+  font-size: 16px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+}
+.page-title {
+
+  font-size: 28px;
+
+  font-weight: 600;
+
+  margin-bottom: 24px;
+
+}
+
+.form-group {
+
+  margin-bottom: 20px;
+
+}
+
+.form-group label {
+
+  display: block;
+
+  margin-bottom: 8px;
+
+  color: var(--text-soft);
+
+}
+
+.form-group input,
+.form-group select {
+
+  width: 100%;
+
+  height: 56px;
+
+  border-radius: 14px;
+
+  border: 1px solid #2E5663;
+
+  background: var(--card);
+
+  color: white;
+
+  padding: 0 16px;
+
+}
+
+.amount-box {
+
+  margin: 24px 0;
+
+  font-size: 22px;
+
+  font-weight: 600;
+
+}
+
+.primary-btn {
+
+  width: 100%;
+
+  height: 56px;
+
+  border: none;
+
+  border-radius: 14px;
+
+  background: var(--accent);
+
+  color: var(--bg);
+
+  font-size: 16px;
+
+  font-weight: 600;
+
+}
