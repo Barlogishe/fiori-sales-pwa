@@ -7,13 +7,8 @@ window.onload = () => {
 
   setTimeout(() => {
 
-  document
-    .getElementById("splash")
-    .style.display = "none";
-
-  document
-    .getElementById("app")
-    .classList.remove("hidden");
+  document.getElementById("splash").style.display = "none";
+  document.getElementById("app").classList.remove("hidden");
 
   const employee =
     localStorage.getItem("employee");
@@ -37,52 +32,30 @@ function renderHome() {
     || "Сотрудник";
 
 
-    document
-  .getElementById("app")
-  .innerHTML = `
-
+  document.getElementById("app").innerHTML = `
     <div class="topbar">
-
       <div class="user-block">
-
         <div class="avatar"></div>
-
         <div>
-
           <div class="welcome">
             С возвращением
           </div>
-
           <div class="username">
             ${employee}
           </div>
-
         </div>
-
       </div>
 
-      <div
-        class="menu-btn"
-        id="menuBtn">
-
+      <div class="menu-btn" id="menuBtn">
         <div class="menu-grid">
           ${"<span></span>".repeat(9)}
         </div>
-
       </div>
-
     </div>
-
     <div id="page-content"></div>
+  `;
 
-`;
-
-  document
-  .getElementById("menuBtn")
-  .addEventListener(
-    "click",
-    openMenu
-  );
+  document.getElementById("menuBtn").addEventListener("click", openMenu);
 
   renderSalePage();
 
@@ -90,81 +63,38 @@ function renderHome() {
 
 function openMenu() {
 
-  document
-    .getElementById("drawer")
-    .classList.add("open");
-
-  document
-    .getElementById("overlay")
-    .classList.add("open");
+  document.getElementById("drawer").classList.add("open");
+  document.getElementById("overlay").classList.add("open");
 
 }
 
-document
-  .getElementById("overlay")
-  .onclick = () => {
-
-    document
-      .getElementById("drawer")
-      .classList.remove("open");
-
-    document
-      .getElementById("overlay")
-      .classList.remove("open");
-
+document.getElementById("overlay").onclick = () => {
+  document.getElementById("drawer").classList.remove("open");
+  document.getElementById("overlay").classList.remove("open");
 };
 
 async function renderEmployeeSelect() {
 
-  const app =
-    document.getElementById("app");
+  const app = document.getElementById("app");
 
   app.innerHTML = `
-
     <div class="employee-screen">
+      <img src="icon-192.png" class="logo">
 
-      <img
-        src="logo.png"
-        class="logo">
-
-      <h1>
-        Добро пожаловать
-      </h1>
-
+      <h1>Добро пожаловать</h1>
+      
       <div class="form-group">
+        <!--label>Номер телефона</label-->
+        <input id="phone" class="login-input" type="tel" placeholder="номер телефона">
+      </div>
+      
+      <div class="form-group">
+        <!--label>Пароль</label-->
+        <input id="password" class="login-input" type="password" placeholder="введите пароль">
+      </div>
 
-      <label>
-        Номер телефона
-      </label>
-
-      <input
-        id="phone"
-        class="login-input"
-        type="tel"
-        placeholder="71231231212">
-
+      <button id="loginBtn">Войти</button>
     </div>
-
-    <div class="form-group">
-
-      <label>
-        Пароль
-      </label>
-
-      <input
-        id="password"
-        class="login-input"
-        type="password"
-        placeholder="Введите пароль">
-
-    </div>
-
-      <button id="loginBtn">
-        Войти
-      </button>
-
-    </div>
-
   `;
 
   function login() {
