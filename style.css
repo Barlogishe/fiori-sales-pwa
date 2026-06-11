@@ -110,9 +110,10 @@ body {
   right: -95%;
   width: 95%;
   height: 100%;
-  background: var(--card);
+  background: #F3F3F3;
   transition: .3s;
   z-index: 1000;
+  padding: 32px 20px 30px 20px;
 }
 
 #drawer.open {
@@ -124,15 +125,38 @@ body {
 }
 
 .drawer-content {
-  padding: 80px 32px;
+  padding: 16px 8px;
 }
 
 .drawer-content a {
   display: block;
-  color: white;
+  font-weight: 600;
+  color: #24252C;
   text-decoration: none;
-  font-size: 22px;
+  font-size: 14px;
   margin-bottom: 28px;
+}
+
+.drawer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 16px 8px;
+}
+
+.drawer-title {
+  font-size: 24px;
+  font-weight: 400;
+   color: #24252C;
+}
+
+.drawer-close {
+  border: none;
+  background: transparent;
+  font-size: 28px;
+  cursor: pointer;
+  color: #1B2B34;
 }
 
 #toast {
