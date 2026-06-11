@@ -1,4 +1,4 @@
-const CACHE_NAME = "fiori-sales-v1";
+const CACHE_NAME = "fiori-sales-v11062026_1";
 
 const urlsToCache = [
   "./",

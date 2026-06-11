@@ -829,7 +829,7 @@ function logout() {
 if ("serviceWorker" in navigator) {
 
 navigator.serviceWorker
-  .register("./service-worker.js?v=2")
+  .register("./service-worker.js?v=11062026_1")
     .then(() => {
 
       console.log(
