@@ -2,15 +2,16 @@ const API_URL =
   "https://script.google.com/macros/s/AKfycbwbqkWby9Kr_eNCTVaZn6W9yau77q8CYr_dl3e-a357_bdfAL61hzdcnEvuUrsHtOWj/exec";
 
 let references = null;
+let apiStatus =  "Проверка API...";
 
 window.onload = () => {
 
-  setTimeout(() => {
+  setTimeout(async () => {
 
   document.getElementById("splash").style.display = "none";
   document.getElementById("app").classList.remove("hidden");
 
-  checkApiConnection();
+  await checkApiConnection();
 
   const employee =
     localStorage.getItem("employee");
@@ -39,17 +40,63 @@ async function checkApiConnection() {
     const data =
       await response.json();
 
-    console.log(data);
+    console.log(
+      "API ответ:",
+      data
+    );
 
-    document.getElementById("apiInfo").textContent =
-      `API ${data.deployment} · ${data.updated}`;
+    if (data.success) {
+
+      const deployment =
+        data.deployment || "unknown";
+
+      const version =
+        data.version || "";
+
+      const updated =
+        data.updated || "";
+
+      apiStatus =
+        `API ${deployment} ${version} ${updated}`.trim();
+
+      console.log(
+        "Подключено к:",
+        apiStatus
+      );
+
+    } else {
+
+      apiStatus =
+        "API: ошибка";
+
+      console.error(
+        "Ошибка API:",
+        data
+      );
+
+    }
 
   } catch (error) {
 
+    apiStatus =
+      "API недоступен";
+
     console.error(
-      "Ошибка подключения к API",
+      "Ошибка подключения к API:",
       error
     );
+
+  }
+
+  const apiInfo =
+    document.getElementById(
+      "apiInfo"
+    );
+
+  if (apiInfo) {
+
+    apiInfo.textContent =
+      apiStatus;
 
   }
 
