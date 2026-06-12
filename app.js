@@ -1,5 +1,5 @@
 const API_URL =
-  "https://script.google.com/macros/s/AKfycbxfPZliDRENyAtMVq_E0ahPoeHVELZSWZDzf16TYL6D2zsoY3y4qKP5fykks9uysieN/exec";  
+  "https://script.google.com/macros/s/AKfycbwbqkWby9Kr_eNCTVaZn6W9yau77q8CYr_dl3e-a357_bdfAL61hzdcnEvuUrsHtOWj/exec";  
 
 let references = null;
 let apiStatus =  "Проверка API...";
@@ -41,7 +41,7 @@ async function checkApiConnection() {
       "API ответ:",
       data
     );
-		console.log("API_URL");
+		console.log("API_URL:", API_URL);
 
     if (data.success) {
 
