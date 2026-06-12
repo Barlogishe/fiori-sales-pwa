@@ -1,6 +1,5 @@
 const API_URL =
-  "https://script.google.com/macros/s/AKfycbxfPZliDRENyAtMVq_E0ahPoeHVELZSWZDzf16TYL6D2zsoY3y4qKP5fykks9uysieN/exec";
-  
+  "https://script.google.com/macros/s/AKfycbxfPZliDRENyAtMVq_E0ahPoeHVELZSWZDzf16TYL6D2zsoY3y4qKP5fykks9uysieN/exec";  
 
 let references = null;
 let apiStatus =  "Проверка API...";
