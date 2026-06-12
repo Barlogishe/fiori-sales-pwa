@@ -29,14 +29,11 @@ window.onload = () => {
 }, 1500);
 
 async function checkApiConnection() {
-
   try {
-
     const response =
       await fetch(
         `${API_URL}?action=ping`
       );
-
     const data =
       await response.json();
 
@@ -44,6 +41,7 @@ async function checkApiConnection() {
       "API ответ:",
       data
     );
+		console.log("API_URL");
 
     if (data.success) {
 
