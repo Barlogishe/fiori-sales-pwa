@@ -10,6 +10,8 @@ window.onload = () => {
   document.getElementById("splash").style.display = "none";
   document.getElementById("app").classList.remove("hidden");
 
+  checkApiConnection();
+
   const employee =
     localStorage.getItem("employee");
 
@@ -24,6 +26,34 @@ window.onload = () => {
   }
 
 }, 1500);
+
+async function checkApiConnection() {
+
+  try {
+
+    const response =
+      await fetch(
+        `${API_URL}?action=ping`
+      );
+
+    const data =
+      await response.json();
+
+    console.log(data);
+
+    document.getElementById("apiInfo").textContent =
+      `API ${data.deployment} · ${data.updated}`;
+
+  } catch (error) {
+
+    console.error(
+      "Ошибка подключения к API",
+      error
+    );
+
+  }
+
+}
 
 function renderHome() {
 
