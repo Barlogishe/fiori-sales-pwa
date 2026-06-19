@@ -114,6 +114,8 @@ body {
   transition: .3s;
   z-index: 1000;
   padding: 32px 20px 30px 20px;
+  display: flex;
+  flex-direction: column;
 }
 
 #drawer.open {
@@ -126,6 +128,7 @@ body {
 
 .drawer-content {
   padding: 16px 8px;
+  flex: 1;
 }
 
 .drawer-content a {
@@ -149,6 +152,13 @@ body {
   font-size: 24px;
   font-weight: 400;
    color: #24252C;
+}
+
+.drawer-footer {
+  padding: 16px;
+  border-top: 1px solid #e5e5e5;
+  color: #24252C;
+  font-size: 14px;
 }
 
 .drawer-close {
