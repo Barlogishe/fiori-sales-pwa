@@ -14,7 +14,7 @@
 
 <body>
 
-  <!-- Splash -->
+<!-- Splash -->
 
 <div id="splash">
   <div class="splash-content">
@@ -23,43 +23,43 @@
   <img src="flowers-bottom.png" alt=""class="splash-decoration">
 </div>
 
-  <!-- App -->
+<!-- App -->
+<div id="app" class="hidden"></div>
 
-  <div id="app" class="hidden"></div>
+<!-- Затемнение -->
+<div id="overlay"></div>
 
-  <!-- Затемнение -->
+<!-- Боковое меню -->
 
-  <div id="overlay"></div>
-
-  <!-- Боковое меню -->
-
-  <div id="drawer">
-    <div class="drawer-header">
-      <div class="drawer-title">Меню</div>
-      <button class="drawer-close" onclick="closeMenu()">✕</button>
-    </div>
-
-    <div class="drawer-content">
-      <a href="#" data-page="sale">Продажа</a>
-      <a href="#" data-page="orders">Заказы</a>
-      <a href="#" data-page="analytics">Мои продажи</a>
-      <a href="#" data-page="writeoff">Списание</a>
-      <a href="#" data-page="settings">Настройки</a>
-      <a onclick="logout()">Выход</a>
-    </div>
-
-    <div class="drawer-footer">
-      <div id="apiInfo" class="api-info">${apiStatus}</div>
-    </div>
-
+<div id="drawer">
+  <div class="drawer-header">
+    <div class="drawer-title">Меню</div>
+    <button class="drawer-close" onclick="closeMenu()">✕</button>
   </div>
+
+  <div class="drawer-content">
+    <a href="#" data-page="sale">Продажа</a>
+    <a href="#" data-page="orders">Оформить заказ</a>
+    <!--a href="#" data-page="analytics">Мои продажи</a>
+    <a href="#" data-page="writeoff">Списание</a>
+    <a href="#" data-page="settings">Настройки</a-->
+    <a onclick="logout()">Выход</a>
+  </div>
+
+  <div class="drawer-footer">
+    <div id="apiInfo" class="api-info">${apiStatus}</div>
+  </div>
+</div>
   
+<!-- Уведомление -->
+<div id="toast"></div>
 
-  <!-- Уведомление -->
+<script src="js/api.js"></script>
+<script src="js/masks.js"></script>
+<script src="js/sale.js"></script>
+<script src="js/order.js"></script>
 
-  <div id="toast"></div>
-
-  <script src="app.js"></script>
+<script src="app.js"></script>
 
 </body>
 </html>

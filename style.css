@@ -295,6 +295,7 @@ body {
 .form-group select,
 .form-group .login-input {
   width: 100%;
+  min-width: 300px;
   height: 56px;
   box-sizing: border-box;
   border-radius: 12px;
