@@ -3,6 +3,7 @@ const API_URL =
 
 let references = null;
 let apiStatus =  "Проверка API...";
+let selectedProduct = "";
 
 window.onload = () => {
 
@@ -323,72 +324,28 @@ function renderSalePage() {
   document
     .getElementById("page-content")
     .innerHTML = `
+      <div class="page-title">Продажа</div>
 
-      <div class="page-title">
+      <div class="form-group">
+				<label>Товар</label>
+				<div class="custom-select">
+					<input id="productSearch"	type="text" readonly placeholder="Выберите товар">
+					<div id="productList" class="product-list hidden"></div>
+				</div>
 
-        Продажа
-
+      <div class="form-group">
+				<label>Количество</label>
+        <input id="quantity" type="number" value="1">
       </div>
 
       <div class="form-group">
-
-        <label>
-          Товар
-        </label>
-
-        <select id="product">
-
-          <option>
-            Загрузка...
-          </option>
-
-        </select>
-
+				<label>Цена</label>
+				<input id="price" type="number">
       </div>
 
-      <div class="form-group">
+      <div class="amount-box">Сумма: <span id="amount">0</span> ₽</div>
 
-        <label>
-          Количество
-        </label>
-
-        <input
-          id="quantity"
-          type="number"
-          value="1">
-
-      </div>
-
-      <div class="form-group">
-
-        <label>
-          Цена
-        </label>
-
-        <input
-          id="price"
-          type="number">
-
-      </div>
-
-      <div class="amount-box">
-
-        Сумма:
-        <span id="amount">
-          0
-        </span>
-        ₽
-
-      </div>
-
-      <button
-        class="primary-btn"
-        id="saveSaleBtn">
-
-        Сохранить
-
-      </button>
-
+      <button class="primary-btn" id="saveSaleBtn">Сохранить</button>
   `;
 
   loadProducts();
@@ -408,24 +365,60 @@ async function loadProducts() {
     const data =
       await response.json();
 
-    const select =
+    const list =
       document.getElementById(
-        "product"
+        "productList"
       );
 
-    select.innerHTML = "";
+    list.innerHTML = "";
 
     data.products.forEach(
       product => {
 
-        select.innerHTML += `
-          <option value="${product}">
-            ${product}
-          </option>
-        `;
+        const item =
+          document.createElement(
+            "div"
+          );
+
+        item.className =
+          "product-item";
+
+        item.textContent =
+          product;
+
+        item.onclick = () => {
+
+          selectedProduct =
+            product;
+
+          document
+            .getElementById(
+              "productSearch"
+            )
+            .value = product;
+
+          list.classList.add(
+            "hidden"
+          );
+
+        };
+
+        list.appendChild(item);
 
       }
     );
+
+    document
+      .getElementById(
+        "productSearch"
+      )
+      .onclick = () => {
+
+        list.classList.toggle(
+          "hidden"
+        );
+
+      };
 
   } catch (error) {
 
@@ -434,6 +427,7 @@ async function loadProducts() {
   }
 
 }
+
 function setupSaleForm() {
 
   const quantity =
@@ -479,12 +473,16 @@ function setupSaleForm() {
 }
 async function saveSale() {
 
+	const button = document.getElementById("saveSaleBtn");
+		if (button.disabled) {
+			return;
+		}
+		button.disabled = true;
+		button.textContent ="Сохранение...";
+
   try {
 
-    const product =
-      document
-        .getElementById("product")
-        .value;
+    const product = selectedProduct;
 
     const quantity =
       Number(
@@ -557,6 +555,9 @@ async function saveSale() {
         "Продажа сохранена"
       );
 
+			button.disabled = false;
+			button.textContent ="Сохранить";
+
       document
         .getElementById("quantity")
         .value = 1;
@@ -587,9 +588,23 @@ async function saveSale() {
 
   }
 
+	finally {
+    button.disabled = false;
+    button.textContent = "Сохранить";
+  }
+
 }
 
 async function saveOrder() {
+
+	const button =  document.getElementById("saveOrderBtn");
+	
+	if (button.disabled) {
+		return;
+	}
+	
+	button.disabled = true;
+	button.textContent = "Сохранение...";
 
   try {
 
@@ -599,11 +614,7 @@ async function saveOrder() {
         .value
         .trim();
 
-    const phone =
-      document
-        .getElementById("customerPhone")
-        .value
-        .trim();
+    const phone = document.getElementById("customerPhone").value.replace(/\D/g, "");
 
     const pickupDate =
       document
@@ -738,15 +749,16 @@ async function saveOrder() {
 
     }
 
-  } catch (error) {
-
+  } 
+	catch (error) {
     console.error(error);
-
-    showToast(
-      "Ошибка соединения"
-    );
-
+    showToast("Ошибка соединения");
   }
+
+	finally {
+		button.disabled = false;
+		button.textContent = "Сохранить заказ";
+	}
 
 }
 
@@ -756,9 +768,7 @@ function renderOrdersPage() {
     .getElementById("page-content")
     .innerHTML = `
 
-      <div class="page-title">
-        Заказы
-      </div>
+      <div class="page-title">Новый заказ клиента</div>
 
       <div class="form-group">
         <label>Имя клиента</label>
@@ -778,24 +788,17 @@ function renderOrdersPage() {
 
       <div class="form-group">
         <label>Дата получения</label>
-        <input
-          id="pickupDate"
-          type="date">
-      </div>
+        <input id="pickupDate" type="text" placeholder="дд.мм.гггг">
+			</div>
 
       <div class="form-group">
         <label>Время получения</label>
-        <input
-          id="pickupTime"
-          type="time">
+        <input id="pickupTime" type="text" placeholder="чч:мм">
       </div>
 
       <div class="form-group">
         <label>Описание заказа</label>
-        <input
-          id="description"
-          type="text"
-          placeholder="Букет из пионов">
+        <input id="description" type="text">
       </div>
 
       <div class="form-group">
@@ -829,17 +832,190 @@ function renderOrdersPage() {
           placeholder="Дополнительная информация"></textarea>
       </div>
 
-      <button
-        class="primary-btn"
-        id="saveOrderBtn">
-
-        Сохранить заказ
-
+      <button class="primary-btn" id="saveOrderBtn">
+				Сохранить заказ
       </button>
 
     `;
+	setupPhoneMask();
+	setupDateMask();
+	setupTimeMask();
+	setupOrderForm();
 
-  setupOrderForm();
+}
+
+function setupTimeMask() {
+
+  const input =
+    document.getElementById(
+      "pickupTime"
+    );
+
+  if (!input) return;
+
+  input.addEventListener(
+    "input",
+    e => {
+
+      let value =
+        e.target.value.replace(
+          /\D/g,
+          ""
+        );
+
+      value =
+        value.slice(0, 4);
+
+      if (
+        value.length > 2
+      ) {
+
+        value =
+          value.slice(0, 2)
+          + ":"
+          + value.slice(2);
+
+      }
+
+      e.target.value =
+        value;
+
+    }
+  );
+
+}
+
+function setupPhoneMask() {
+
+  const input =
+    document.getElementById(
+      "customerPhone"
+    );
+
+  if (!input) return;
+
+  input.addEventListener(
+    "input",
+    e => {
+
+      let value =
+        e.target.value.replace(
+          /\D/g,
+          ""
+        );
+
+      if (
+        value.startsWith("8")
+      ) {
+
+        value =
+          "7" +
+          value.slice(1);
+
+      }
+
+      if (
+        !value.startsWith("7")
+      ) {
+
+        value =
+          "7" + value;
+
+      }
+
+      value =
+        value.slice(0, 11);
+
+      let formatted =
+        "+7";
+
+      if (value.length > 1) {
+
+        formatted +=
+          " (" +
+          value.slice(1, 4);
+
+      }
+
+      if (value.length >= 4) {
+
+        formatted +=
+          ") " +
+          value.slice(4, 7);
+
+      }
+
+      if (value.length >= 7) {
+
+        formatted +=
+          "-" +
+          value.slice(7, 9);
+
+      }
+
+      if (value.length >= 9) {
+
+        formatted +=
+          "-" +
+          value.slice(9, 11);
+
+      }
+
+      e.target.value =
+        formatted;
+
+    }
+  );
+
+}
+
+function setupDateMask() {
+
+  const input =
+    document.getElementById(
+      "pickupDate"
+    );
+
+  if (!input) return;
+
+  input.addEventListener(
+    "input",
+    e => {
+
+      let value =
+        e.target.value.replace(
+          /\D/g,
+          ""
+        );
+
+      value =
+        value.slice(0, 8);
+
+      if (value.length > 4) {
+
+        value =
+          value.slice(0, 2)
+          + "."
+          + value.slice(2, 4)
+          + "."
+          + value.slice(4);
+
+      } else if (
+        value.length > 2
+      ) {
+
+        value =
+          value.slice(0, 2)
+          + "."
+          + value.slice(2);
+
+      }
+
+      e.target.value =
+        value;
+
+    }
+  );
 
 }
 

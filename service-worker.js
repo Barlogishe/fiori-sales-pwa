@@ -1,4 +1,6 @@
-const CACHE_NAME = "fiori-sales-v11062026_2";
+const CACHE_NAME = "fiori-sales-v19062026_1";
+
+console.log("Service Worker:", CACHE_NAME);
 
 const urlsToCache = [
   "./",
@@ -13,33 +15,62 @@ const urlsToCache = [
 
 self.addEventListener("install", event => {
 
-  event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => cache.addAll(urlsToCache))
-      .then(() => self.skipWaiting())
-  );
+    console.log("Installing:", CACHE_NAME);
+
+    event.waitUntil(
+        caches.open(CACHE_NAME)
+        .then(cache => cache.addAll(urlsToCache))
+        .then(() => self.skipWaiting())
+    );
 
 });
 
 self.addEventListener("activate", event => {
 
-  event.waitUntil(
-    caches.keys()
-      .then(cacheNames => Promise.all(
-        cacheNames
-          .filter(cacheName => cacheName !== CACHE_NAME)
-          .map(cacheName => caches.delete(cacheName))
-      ))
-      .then(() => self.clients.claim())
-  );
+    console.log("Activated:",CACHE_NAME)
+
+    event.waitUntil(
+        caches.keys()
+        .then(cacheNames => Promise.all(
+            cacheNames
+            .filter(cacheName => cacheName !== CACHE_NAME)
+            .map(cacheName => caches.delete(cacheName))
+        ))
+        .then(() => self.clients.claim())
+    ); 
 
 });
 
 self.addEventListener("fetch", event => {
 
+  if (
+    event.request.url.includes("app.js")
+    ||
+    event.request.url.includes("style.css")
+    ||
+    event.request.url.includes("index.html")
+  ) {
+
+    event.respondWith(
+
+      fetch(event.request)
+        .catch(() =>
+          caches.match(event.request)
+        )
+
+    );
+
+    return;
+
+  }
+
   event.respondWith(
+
     caches.match(event.request)
-      .then(response => response || fetch(event.request))
+      .then(response =>
+        response || fetch(event.request)
+      )
+
   );
 
 });
